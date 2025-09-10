@@ -1470,6 +1470,28 @@ ytm-shorts-lockup-view-model`,
     return { response: response?.response, data: null };
   },
 
+  getVideoDataFromYoutubeI: async function (videoId) {
+    const body = {
+      context: {
+        client: {
+          clientName: this.isMobile() ? "MWEB" : "WEB",
+          clientVersion: "2.20250731.09.00",
+        },
+      },
+      videoId,
+    };
+
+    const headers = await this.getYoutubeIHeadersWithCredentials();
+
+    const response = await this.cachedRequest(
+      `https://${this.isMobile() ? "m" : "www"}.youtube.com/youtubei/v1/player?prettyPrint=false`,
+      JSON.stringify(body),
+      headers,
+    );
+
+    return response;
+  },
+
   getSAPISID: function () {
     const match = document.cookie.match(/SAPISID=([^\s;]+)/);
     return match ? match[1] : null;
