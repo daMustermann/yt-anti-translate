@@ -103,6 +103,7 @@ function saveOptions() {
       untranslateDescription: true,
       untranslateChannelBranding: true,
       untranslateNotification: true,
+      untranslateThumbnail: false,
       youtubeDataApiKey: null,
     },
     function (items) {
@@ -139,6 +140,7 @@ function loadOptions() {
       untranslateDescription: true,
       untranslateChannelBranding: true,
       untranslateNotification: true,
+      untranslateThumbnail: false,
       youtubeDataApiKey: null,
     },
     function (items) {
@@ -165,6 +167,8 @@ function loadOptions() {
         items.untranslateChannelBranding;
       document.getElementById("notification-checkbox").checked =
         items.untranslateNotification;
+      document.getElementById("thumbnail-checkbox").checked =
+        items.untranslateThumbnail;
       document.getElementById("api-key-input").value = items.youtubeDataApiKey;
     },
   );
@@ -184,6 +188,8 @@ function checkboxUpdate() {
       ).checked,
       untranslateNotification: document.getElementById("notification-checkbox")
         .checked,
+      untranslateThumbnail:
+        document.getElementById("thumbnail-checkbox").checked,
     },
     () => {
       reloadActiveYouTubeTab();
@@ -251,6 +257,9 @@ function addListeners() {
     .addEventListener("click", checkboxUpdate);
   document
     .getElementById("notification-checkbox")
+    .addEventListener("click", checkboxUpdate);
+  document
+    .getElementById("thumbnail-checkbox")
     .addEventListener("click", checkboxUpdate);
   document
     .getElementById("save-api-key-button")
